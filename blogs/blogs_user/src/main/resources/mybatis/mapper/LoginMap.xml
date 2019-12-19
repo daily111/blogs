@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.mapper.LoginMap">
+
+    <select id="getByUserName" parameterType="com.dj.dto.User" resultType="com.dj.dto.User">
+        SELECT id as id,accout as account,pass_word as passWord,user_phone as phone,
+        verification_code as verificationCode,user_status as userStatus,role_id as roleId,
+        profile_path as profilePath,
+         input_time as inputTime,login_time as loginTime,login_count as loginCount
+         from user where accout=#{account,jdbcType=VARCHAR}
+
+    </select>
+    <select id="listUserRoles" resultType="com.dj.dto.User">
+        SELECT
+        u.id as id,
+        u.accout as userName,
+        u.role_id as roleId,
+        (SELECT  r.role_name  FROM role r WHERE u.role_id =r.role_id) as roleName
+        from `user` u WHERE u.id=#{userId}
+    </select>
+    <select id="listUserPerms" resultType="String">
+         SELECT
+        (SELECT p.permission_name FROM permission p WHERE p.permission_id=r.permission_id) as permissionName
+         from role_permission r WHERE r.role_id=#{roleId}
+
+    </select>
+
+    <select id="list" parameterType="com.dj.dto.QueryUser" resultType="com.dj.dto.User">
+        SELECT id as id,accout as account,pass_word as passWord,user_phone as phone,
+          verification_code as verificationCode,user_status as userStatus,
+         input_time as inputTime,login_time as loginTime,login_count as loginCount
+         from user
+    </select>
+
+</mapper>

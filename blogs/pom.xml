@@ -9,6 +9,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>blogs_web</module>
+        <module>eureka_6001</module>
+        <module>eureka_6002</module>
+        <module>blogs_user</module>
     </modules>
     <packaging>pom</packaging>
 
